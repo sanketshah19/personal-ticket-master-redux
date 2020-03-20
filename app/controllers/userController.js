@@ -26,3 +26,14 @@ module.exports.login = function(req, res){
             res.send(err)
         })
 }
+
+module.exports.logout = function(req, res){
+    const {user, token} = req
+    User.findByIdAndUpdate(user._id, {$pull: {tokens: {token}}})
+        .then((token) => {
+            res.send({notice: 'Successfully logged out'})
+        })
+        .catch((err) => {
+            res.send(err)
+        })
+}
