@@ -46,6 +46,22 @@ const userSchema = new Schema({
     ]
 })
 
+userSchema.pre('save', function(next){
+    const user = this
+    if(user.isNew){
+        bcryptjs.genSalt(10)
+                .then((salt) => {
+                    bcryptjs.hash(user.password, salt)
+                            .then((encryptedPassword) => {
+                                user.password = encryptedPassword
+                                next()
+                            })
+                })
+    }else{
+        next()
+    }
+})
+
 const User = mongoose.model('User', userSchema)
 
 module.exports = {
