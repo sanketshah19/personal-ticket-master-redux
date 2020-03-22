@@ -24,7 +24,7 @@ module.exports.create = function(req, res){
 }
 
 module.exports.show = function(req, res){
-    const id = req.params.id
+    const {id} = req.params
     Customer.findOne({_id: id, user: req.user._id})
             .then((customer) => {
                 if(customer){
