@@ -29,6 +29,8 @@ const customerSchema = new Schema({
         type: String,
         required: [true, 'Mobile number cannot be empty'],
         unique: true,
+        minlength: 10,
+        maxlength: 10,
         validate: {
             validator: function(value){
                 return validator.isNumeric(value)
