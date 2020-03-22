@@ -22,3 +22,18 @@ module.exports.create = function(req, res){
                 res.send(err)
             })
 }
+
+module.exports.show = function(req, res){
+    const {id} = req.params
+    Employee.findOne({_id: id, user: req.user._id}).populate('department')
+            .then((employee) => {
+                if(employee){
+                    res.send(employee)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
