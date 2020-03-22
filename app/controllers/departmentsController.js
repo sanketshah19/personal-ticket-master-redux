@@ -22,3 +22,18 @@ module.exports.create = function(req, res){
                     res.send(err)
                 })
 }
+
+module.exports.show = function(req, res){
+    const id = req.params.id
+    Department.findOne({_id: id, user: req.user._id})
+                .then((department) => {
+                    if(department){
+                        res.send(department)
+                    }else{
+                        res.send({})
+                    }
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
+}
