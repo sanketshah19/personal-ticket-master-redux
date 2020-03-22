@@ -37,3 +37,18 @@ module.exports.show = function(req, res){
                 res.send(err)
             })
 }
+
+module.exports.update = function(req, res){
+    const {body} = req, {id} = req.params
+    Employee.findOneAndUpdate({_id: id, user: req.user._id}, body, {new: true, runValidators: true}).populate('department')
+            .then((employee) => {
+                if(employee){
+                    res.send(employee)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
