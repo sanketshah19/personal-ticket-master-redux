@@ -11,5 +11,6 @@ router.delete('/users/logout', authenticateUser, userController.logout)
 
 router.get('/customers', authenticateUser, customersController.list)
 router.post('/customers', authenticateUser, customersController.create)
+router.get('/customers/:id', authenticateUser, customersController.show)
 
 module.exports = router

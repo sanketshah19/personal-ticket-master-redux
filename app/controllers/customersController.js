@@ -22,3 +22,18 @@ module.exports.create = function(req, res){
                 res.send(err)
             })
 }
+
+module.exports.show = function(req, res){
+    const id = req.params.id
+    Customer.findOne({_id: id, user: req.user._id})
+            .then((customer) => {
+                if(customer){
+                    res.send(customer)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
