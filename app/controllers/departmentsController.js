@@ -52,3 +52,18 @@ module.exports.update = function(req, res){
                     res.send(err)
                 })
 }
+
+module.exports.destroy = function(req, res){
+    const {id} = req.params
+    Department.findOneAndDelete({_id: id, user: req.user._id})
+                .then((department) => {
+                    if(department){
+                        res.send(department)
+                    }else{
+                        res.send({})
+                    }
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
+}
