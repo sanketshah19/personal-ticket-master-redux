@@ -54,7 +54,7 @@ module.exports.update = function(req, res){
 }
 
 module.exports.destroy = function(req, res){
-    const id = req.params.id
+    const {id} = req.params
     Customer.findOneAndDelete({_id: id, user: req.user._id})
             .then((customer) => {
                 if(customer){
