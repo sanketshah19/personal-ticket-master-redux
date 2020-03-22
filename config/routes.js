@@ -24,5 +24,6 @@ router.put('/departments/:id', authenticateUser, departmentsController.update)
 router.delete('/departments/:id', authenticateUser, departmentsController.destroy)
 
 router.get('/employees', authenticateUser, employeesController.list)
+router.post('/employees', authenticateUser, employeesController.create)
 
 module.exports = router
