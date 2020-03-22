@@ -17,5 +17,6 @@ router.put('/customers/:id', authenticateUser, customersController.update)
 router.delete('/customers/:id', authenticateUser, customersController.destroy)
 
 router.get('/departments', authenticateUser, departmentsController.list)
+router.post('/departments', authenticateUser, departmentsController.create)
 
 module.exports = router

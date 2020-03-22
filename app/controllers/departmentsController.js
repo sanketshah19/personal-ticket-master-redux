@@ -9,3 +9,16 @@ module.exports.list = function(req, res){
                     res.send(err)
                 })
 }
+
+module.exports.create = function(req, res){
+    const {body} = req
+    const department = new Department(body)
+    department.user = req.user._id
+    department.save()
+                .then((department) => {
+                    res.send(department)
+                })
+                .catch((err) => {
+                    res.send(err)
+                })
+}
