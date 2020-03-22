@@ -52,3 +52,18 @@ module.exports.update = function(req, res){
                 res.send(err)
             })
 }
+
+module.exports.destroy = function(req, res){
+    const id = req.params.id
+    Customer.findOneAndDelete({_id: id, user: req.user._id})
+            .then((customer) => {
+                if(customer){
+                    res.send(customer)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
