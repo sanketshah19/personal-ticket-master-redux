@@ -1,7 +1,7 @@
 const Ticket = require('../models/ticket')
 
 module.exports.list = function(req, res){
-    Ticket.find({user: req.user._id})
+    Ticket.find({user: req.user._id}).populate('customer').populate('department').populate('employees')
             .then((tickets) => {
                 res.send(tickets)
             })
