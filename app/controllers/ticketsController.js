@@ -37,3 +37,18 @@ module.exports.show = function(req, res){
                 res.send(err)
             })
 }
+
+module.exports.update = function(req, res){
+    const {body} = req, {id} = req.params
+    Ticket.findOneAndUpdate({_id: id, user: req.user._id}, body, {new: true, runValidators: true}).populate('customer').populate('department').populate('employees')
+            .then((ticket) => {
+                if(ticket){
+                    res.send(ticket)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
