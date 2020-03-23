@@ -33,5 +33,6 @@ router.get('/tickets', authenticateUser, ticketsController.list)
 router.post('/tickets', authenticateUser, ticketsController.create)
 router.get('/tickets/:id', authenticateUser, ticketsController.show)
 router.put('/tickets/:id', authenticateUser, ticketsController.update)
+router.delete('/tickets/:id', authenticateUser, ticketsController.destroy)
 
 module.exports = router
