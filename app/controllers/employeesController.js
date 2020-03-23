@@ -1,4 +1,5 @@
 const Employee = require('../models/employee')
+const Ticket = require('../models/ticket')
 
 module.exports.list = function(req, res){
     Employee.find({user: req.user._id}).populate('department')
@@ -59,6 +60,22 @@ module.exports.destroy = function(req, res){
             .then((employee) => {
                 if(employee){
                     res.send(employee)
+                }else{
+                    res.send({})
+                }
+            })
+            .catch((err) => {
+                res.send(err)
+            })
+}
+
+module.exports.find = function(req, res){
+    const {id} = req.params
+    Promise.all( [ Employee.findOne({_id: id, user: req.user._id}), Ticket.find({employees: id, user: req.user._id}).populate('customer').populate('department').populate('employees') ] )
+            .then((values) => {
+                if(values[0]){
+                    const [employee, tickets] = values
+                    res.send({employee, tickets})
                 }else{
                     res.send({})
                 }
