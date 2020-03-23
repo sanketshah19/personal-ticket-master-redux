@@ -5,6 +5,7 @@ const userController = require('../app/controllers/userController')
 const customersController = require('../app/controllers/customersController')
 const departmentsController = require('../app/controllers/departmentsController')
 const employeesController = require('../app/controllers/employeesController')
+const ticketsController = require('../app/controllers/ticketsController')
 const authenticateUser = require('../app/middlewares/authentication')
 
 router.post('/users/register', userController.register)
@@ -27,5 +28,7 @@ router.get('/employees', authenticateUser, employeesController.list)
 router.post('/employees', authenticateUser, employeesController.create)
 router.get('/employees/:id', authenticateUser, employeesController.show)
 router.put('/employees/:id', authenticateUser, employeesController.update)
+
+router.get('/tickets', authenticateUser, ticketsController.list)
 
 module.exports = router
