@@ -30,5 +30,6 @@ router.get('/employees/:id', authenticateUser, employeesController.show)
 router.put('/employees/:id', authenticateUser, employeesController.update)
 
 router.get('/tickets', authenticateUser, ticketsController.list)
+router.post('/tickets', authenticateUser, ticketsController.create)
 
 module.exports = router
