@@ -17,6 +17,7 @@ router.post('/customers', authenticateUser, customersController.create)
 router.get('/customers/:id', authenticateUser, customersController.show)
 router.put('/customers/:id', authenticateUser, customersController.update)
 router.delete('/customers/:id', authenticateUser, customersController.destroy)
+router.get('/customers/tickets/:id', authenticateUser, customersController.find)
 
 router.get('/departments', authenticateUser, departmentsController.list)
 router.post('/departments', authenticateUser, departmentsController.create)
