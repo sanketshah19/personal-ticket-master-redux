@@ -6,12 +6,16 @@ import {Button, Table} from 'react-bootstrap';
 import CustomersEdit from './Edit';
 import CustomerImg from '../../Images/Customer.svg';
 
-import {startGetAllCustomers} from '../../actions/customers';
+import {startGetAllCustomers, startRemoveCustomer} from '../../actions/customers';
 
 class CustomersList extends React.Component{
     
     componentDidMount(){
         this.props.dispatch(startGetAllCustomers())
+    }
+
+    handleRemove = (id) => {
+        this.props.dispatch(startRemoveCustomer(id))
     }
     
     render(){
@@ -40,7 +44,7 @@ class CustomersList extends React.Component{
                                                 <td><Link to={`/customers/tickets/${customer._id}`}>{customer.name}</Link></td>
                                                 <td>{customer.email}</td>
                                                 <td>{customer.mobile}</td>
-                                                <td><CustomersEdit customer={customer}/> <Button variant="outline-danger" className="ml-2">Remove</Button></td>
+                                                <td><CustomersEdit customer={customer}/> <Button variant="outline-danger" className="ml-2" onClick={() => this.handleRemove(customer._id)}>Remove</Button></td>
                                             </tr>
                                         )
                                     })

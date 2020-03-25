@@ -22,6 +22,13 @@ export const editCustomer = (customer) => {
     }
 }
 
+export const removeCustomer = (id) => {
+    return {
+        type: 'REMOVE_CUSTOMER',
+        payload: id
+    }
+}
+
 export const startGetAllCustomers = () => {
     return (dispatch) => {
         axios.get('/customers', {
@@ -87,5 +94,53 @@ export const startEditCustomer = (id, formData) => {
         .catch((err) => {
             swal ("Oops", `${err}` ,"error")
         })
+    }
+}
+
+export const startRemoveCustomer = (id) => {
+    return (dispatch) => {
+        axios.get(`/customers/tickets/${id}`, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+            .then((response) => {
+                const tickets = response.data.tickets
+                if(tickets.length > 0){
+                    swal ( "Can't remove customer", "Ticket is associated with customer!", "error" )
+                }else{
+                    swal({
+                        title: "Are you sure?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                      })
+                      .then(willDelete => {
+                        if (willDelete) {
+                            axios.delete(`/customers/${id}`, {
+                                headers: {
+                                    'x-auth': localStorage.getItem('authToken')
+                                }
+                            })
+                            .then((response) => {
+                                if(response.data.hasOwnProperty('errors')){
+                                    swal("Oops!", `${response.data.message}`, "error");
+                                }else{
+                                    swal("Customer Removed Successfully!", {
+                                        icon: "success",
+                                      })
+                                    dispatch(removeCustomer(id))
+                                }
+                            })
+                            .catch((err) => {
+                                swal ("Oops", `${err}` ,"error")
+                            })
+                        }
+                      })
+                }
+            })
+            .catch((err) => {
+                swal ("Oops", `${err}` ,"error")
+            })
     }
 }
