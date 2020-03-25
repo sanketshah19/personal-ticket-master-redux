@@ -12,6 +12,7 @@ import Login from './components/users/Login';
 
 import CustomersList from './components/customers/List';
 import CustomersNew from './components/customers/New';
+import CustomersTickets from './components/customers/Ticket';
 
 function App(props) {
   function handleLogout(){
@@ -57,6 +58,7 @@ function App(props) {
 
         <PrivateRoute path="/customers" component={CustomersList} exact={true} />
         <PrivateRoute path="/customers/new" component={CustomersNew} />
+        <PrivateRoute path="/customers/tickets/:id" component={CustomersTickets} />
         
       </Switch>
 

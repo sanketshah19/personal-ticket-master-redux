@@ -29,6 +29,20 @@ export const removeCustomer = (id) => {
     }
 }
 
+export const singleCustomer = (customer) => {
+    return {
+        type: 'SINGLE_CUSTOMER',
+        payload: customer
+    }
+}
+
+export const custTicket = (tickets) => {
+    return {
+        type: 'ASSO_TICKETS',
+        payload: tickets
+    }
+}
+
 export const startGetAllCustomers = () => {
     return (dispatch) => {
         axios.get('/customers', {
@@ -142,5 +156,23 @@ export const startRemoveCustomer = (id) => {
             .catch((err) => {
                 swal ("Oops", `${err}` ,"error")
             })
+    }
+}
+
+export const startGetSingleCustomer = (id) => {
+    return (dispatch) => {
+        axios.get(`/customers/tickets/${id}`, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+        .then((response) => {
+            const customer = response.data.customer, tickets = response.data.tickets
+            dispatch(singleCustomer(customer))
+            dispatch(custTicket(tickets))
+        })
+        .catch((err) => {
+            swal("Oops", `${err}`, "error")
+        })
     }
 }
