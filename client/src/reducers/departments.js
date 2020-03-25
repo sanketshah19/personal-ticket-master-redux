@@ -8,6 +8,9 @@ const departmentsReducer = (state = departmentsInitialState, action) => {
         case 'ADD_DEPARTMENT': {
             return [...state, action.payload]
         }
+        case 'REMOVE_DEPARTMENT': {
+            return [...state].filter(dept => dept._id !== action.payload)
+        }
         default: {
             return [...state]
         }

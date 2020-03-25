@@ -15,6 +15,13 @@ export const addDepartment = (department) => {
     }
 }
 
+export const removeDepartment = (id) => {
+    return {
+        type: 'REMOVE_DEPARTMENT',
+        payload: id
+    }
+}
+
 export const startGetAllDepartments = () => {
     return (dispatch) => {
         axios.get('/departments', {
@@ -54,5 +61,34 @@ export const startAddDepartment = (formData) => {
             .catch((err) => {
                 swal("Oops", `${err}` ,"error")
             })
+    }
+}
+
+export const startRemoveDepartment = (id) => {
+    return (dispatch) => {
+        swal({
+            title: "Are you sure?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              swal("Department Removed Successfully!", {
+                icon: "success",
+              });
+              axios.delete(`/departments/${id}`, {
+                headers: {
+                    'x-auth': localStorage.getItem('authToken')
+                }
+            })
+                .then((response) => {
+                    dispatch(removeDepartment(id))
+                })
+                .catch((err) => {
+                    swal("Oops", `${err}` ,"error")
+                })
+            } 
+          })
     }
 }

@@ -5,7 +5,7 @@ import {Button, Table} from 'react-bootstrap';
 import DepartmentsNew from './New';
 import DepartmentImg from '../../Images/Department.png';
 
-import {startGetAllDepartments} from '../../actions/departments';
+import {startGetAllDepartments, startRemoveDepartment} from '../../actions/departments';
 
 class DepartmentsList extends React.Component{
 
@@ -14,7 +14,7 @@ class DepartmentsList extends React.Component{
     }
 
     handleRemove = (id) => {
-        console.log(id)
+        this.props.dispatch(startRemoveDepartment(id))
     }
 
     render(){
