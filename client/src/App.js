@@ -14,6 +14,8 @@ import CustomersList from './components/customers/List';
 import CustomersNew from './components/customers/New';
 import CustomersTickets from './components/customers/Ticket';
 
+import DepartmentsList from './components/departments/List';
+
 function App(props) {
   function handleLogout(){
     props.dispatch(startLogoutUser())
@@ -59,6 +61,8 @@ function App(props) {
         <PrivateRoute path="/customers" component={CustomersList} exact={true} />
         <PrivateRoute path="/customers/new" component={CustomersNew} />
         <PrivateRoute path="/customers/tickets/:id" component={CustomersTickets} />
+
+        <PrivateRoute path="/departments" component={DepartmentsList} exact={true} />
         
       </Switch>
 
