@@ -1,6 +1,13 @@
 import axios from '../config/axios';
 import swal from 'sweetalert';
 
+export const loginUser = (user) => {
+    return {
+        type: 'LOGIN_USER',
+        payload: user
+    }
+}
+
 export const startRegisterUser = (formData, props) => {
     return (dispatch) => {
         axios.post('/users/register', formData)
@@ -19,5 +26,25 @@ export const startRegisterUser = (formData, props) => {
             .catch((err) => {
               swal ("Oops", `${err}` ,"error")
             })
+    }
+}
+
+export const startLoginUser = (formData, props) => {
+    return (dispatch) => {
+        axios.post('/users/login', formData)
+                  .then((response) => {
+                    if(response.data.hasOwnProperty('errors')){
+                        swal ("Oops", `${response.data.errors}` ,"error")
+                    }else{
+                        swal("Success!", "Login Successfully!", "success")
+                        const token = response.data.token
+                        localStorage.setItem('authToken', token)
+                        props.history.push('/')
+                        dispatch(loginUser(response.data.user))
+                    }
+                  })
+                  .catch((err) => {
+                    swal ("Oops", `${err}` ,"error")  
+                  })
     }
 }
