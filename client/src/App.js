@@ -2,12 +2,13 @@ import React from 'react';
 import {Nav, Navbar} from 'react-bootstrap';
 import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
 
+import Home from './components/common/Home';
 
 function App() {
   return (
     <div className="container-fluid">
       <BrowserRouter>
-      
+
       {
         localStorage.getItem('authToken') ?
         (
@@ -35,6 +36,12 @@ function App() {
           </Navbar>
         )
       }
+
+      <Switch>
+
+        <Route path="/" component={Home} exact={true} />
+        
+      </Switch>
 
       </BrowserRouter>
     </div>
