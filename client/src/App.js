@@ -3,11 +3,16 @@ import {connect} from 'react-redux';
 import {Nav, Navbar} from 'react-bootstrap';
 import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
 
+import {startLogoutUser} from './actions/user';
+
 import Home from './components/common/Home';
 import Register from './components/users/Register';
 import Login from './components/users/Login';
 
-function App() {
+function App(props) {
+  function handleLogout(){
+    props.dispatch(startLogoutUser())
+  }
   return (
     <div className="container-fluid">
       <BrowserRouter>
@@ -23,7 +28,7 @@ function App() {
                 <Link to="/departments" className="ml-2">Departments</Link>
                 <Link to="/employees" className="ml-2">Employees</Link>
                 <Link to="/tickets" className="ml-2">Tickets</Link>
-                <Link to="#" className="ml-2">Logout</Link>
+                <Link to="#" onClick={handleLogout} className="ml-2">Logout</Link>
               </Nav.Item>
           </Navbar>
         )
