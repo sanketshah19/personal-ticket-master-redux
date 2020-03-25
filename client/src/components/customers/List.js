@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button, Table} from 'react-bootstrap';
 
+import CustomersEdit from './Edit';
 import CustomerImg from '../../Images/Customer.svg';
 
 import {startGetAllCustomers} from '../../actions/customers';
@@ -39,7 +40,7 @@ class CustomersList extends React.Component{
                                                 <td><Link to={`/customers/tickets/${customer._id}`}>{customer.name}</Link></td>
                                                 <td>{customer.email}</td>
                                                 <td>{customer.mobile}</td>
-                                                <td><Button variant="outline-success">Edit</Button> <Button variant="outline-danger" className="ml-2">Remove</Button></td>
+                                                <td><CustomersEdit customer={customer}/> <Button variant="outline-danger" className="ml-2">Remove</Button></td>
                                             </tr>
                                         )
                                     })

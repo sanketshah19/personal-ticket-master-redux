@@ -15,6 +15,13 @@ export const addCustomer = (customer) => {
     }
 }
 
+export const editCustomer = (customer) => {
+    return {
+        type: 'EDIT_CUSTOMER',
+        payload: customer
+    }
+}
+
 export const startGetAllCustomers = () => {
     return (dispatch) => {
         axios.get('/customers', {
@@ -54,6 +61,31 @@ export const startAddCustomer = (formData, props) => {
         })
         .catch((err) => {
             swal("Oops!", `${err}`, "error");
+        })
+    }
+}
+
+export const startEditCustomer = (id, formData) => {
+    return (dispatch) => {
+        axios.put(`/customers/${id}`, formData, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+        .then((response) => {
+            if(response.data.hasOwnProperty('errmsg')){
+                if(response.data.name === "MongoError" && response.data.code === 11000){
+                    swal ("Oops", `${Object.keys(response.data.keyValue)} already exists` ,"error")
+                }
+            }else if(response.data.hasOwnProperty('errors')){
+                swal("Oops!", `${response.data.message}`, "error")
+            }else{
+                swal("Success!", "Information Updated Successfully!", "success")
+                dispatch(editCustomer(response.data))
+            }
+        })
+        .catch((err) => {
+            swal ("Oops", `${err}` ,"error")
         })
     }
 }
