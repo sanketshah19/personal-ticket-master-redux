@@ -5,6 +5,9 @@ const departmentsReducer = (state = departmentsInitialState, action) => {
         case 'GET_ALL_DEPARTMENTS': {
             return [...action.payload]
         }
+        case 'ADD_DEPARTMENT': {
+            return [...state, action.payload]
+        }
         default: {
             return [...state]
         }

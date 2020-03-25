@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Button, Table} from 'react-bootstrap';
 
+import DepartmentsNew from './New';
 import DepartmentImg from '../../Images/Department.png';
 
 import {startGetAllDepartments} from '../../actions/departments';
@@ -20,7 +21,7 @@ class DepartmentsList extends React.Component{
         return(
             <div>
                 <h2 className="text-center">Departments List</h2><hr/>
-                <Button>Add Department</Button>
+                <DepartmentsNew/>
                 <div className="row mt-3">
                     <div className="col-md-6 mx-auto">
                         <img style={{width: '85%', height: '85%'}} src={DepartmentImg} alt="Department" />
