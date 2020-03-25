@@ -4,10 +4,13 @@ import {Nav, Navbar} from 'react-bootstrap';
 import {BrowserRouter, Switch, Link, Route} from 'react-router-dom';
 
 import {startLogoutUser} from './actions/user';
+import PrivateRoute from './components/privateRoute/PrivateRoute';
 
 import Home from './components/common/Home';
 import Register from './components/users/Register';
 import Login from './components/users/Login';
+
+import CustomersList from './components/customers/List';
 
 function App(props) {
   function handleLogout(){
@@ -50,6 +53,8 @@ function App(props) {
         <Route path="/" component={Home} exact={true} />
         <Route path="/users/register" component={Register} />
         <Route path="/users/login" component={Login} />
+
+        <PrivateRoute path="/customers" component={CustomersList} exact={true} />
         
       </Switch>
 
