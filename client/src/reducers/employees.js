@@ -16,6 +16,9 @@ const employeesReducer = (state = employeesInitialState, action) => {
                 return emp
             })
         }
+        case 'REMOVE_EMPLOYEE': {
+            return [...state].filter(emp => emp._id !== action.payload)
+        }
         default: {
             return [...state]
         }

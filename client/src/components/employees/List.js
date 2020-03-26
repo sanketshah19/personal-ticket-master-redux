@@ -6,12 +6,16 @@ import {Button, Table} from 'react-bootstrap';
 import EmployeesEdit from './Edit'
 import EmployeeImg from '../../Images/Employee.png';
 
-import {startGetAllEmployees} from '../../actions/employees';
+import {startGetAllEmployees, startRemoveEmployee} from '../../actions/employees';
 
 class EmployeesList extends React.Component{
     
     componentDidMount(){
         this.props.dispatch(startGetAllEmployees())
+    }
+
+    handleRemove = (id) => {
+        this.props.dispatch(startRemoveEmployee(id))
     }
 
     render(){
@@ -42,7 +46,7 @@ class EmployeesList extends React.Component{
                                                 <td>{emp.email}</td>
                                                 <td>{emp.mobile}</td>
                                                 <td>{emp.department && emp.department.name}</td>
-                                                <td><EmployeesEdit employee={emp}/><Button className="ml-2" variant="outline-danger">Remove</Button></td>
+                                                <td><EmployeesEdit employee={emp}/><Button className="ml-2" variant="outline-danger" onClick={() => this.handleRemove(emp._id)} >Remove</Button></td>
                                             </tr>
                                         )
                                     })
