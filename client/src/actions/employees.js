@@ -15,6 +15,13 @@ export const addEmployee = (employee) => {
     }
 }
 
+export const editEmployee = (employee) => {
+    return {
+        type: 'EDIT_EMPLOYEE',
+        payload: employee
+    }
+}
+
 export const startGetAllEmployees = () => {
     return (dispatch) => {
         axios.get('/employees', {
@@ -55,5 +62,30 @@ export const startAddEmployee = (formData, props) => {
             .catch((err) => {
                 swal("Oops!", `${err}`, "error");
             })
+    }
+}
+
+export const startEditEmployee = (formData, id) => {
+    return (dispatch) => {
+        axios.put(`/employees/${id}`, formData, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+        .then((response) => {
+            if(response.data.hasOwnProperty('errmsg')){
+                if(response.data.name === "MongoError" && response.data.code === 11000){
+                    swal ("Oops", `${Object.keys(response.data.keyValue)} already exists` ,"error")
+                }
+            }else if(response.data.hasOwnProperty('errors')){
+                swal("Oops!", `${response.data.message}`, "error")
+            }else{
+                swal("Success!", "Information Updated Successfully!", "success")
+                dispatch(editEmployee(response.data))
+            }
+        })
+        .catch((err) => {
+            swal ("Oops", `${err}` ,"error")
+        })
     }
 }

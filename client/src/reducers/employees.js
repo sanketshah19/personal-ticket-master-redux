@@ -8,6 +8,14 @@ const employeesReducer = (state = employeesInitialState, action) => {
         case 'ADD_EMPLOYEE': {
             return [...state, action.payload]
         }
+        case 'EDIT_EMPLOYEE': {
+            return [...state].map(emp => {
+                if(emp._id === action.payload._id){
+                    return Object.assign(emp, action.payload)
+                }
+                return emp
+            })
+        }
         default: {
             return [...state]
         }

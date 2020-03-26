@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button, Table} from 'react-bootstrap';
 
+import EmployeesEdit from './Edit'
 import EmployeeImg from '../../Images/Employee.png';
 
 import {startGetAllEmployees} from '../../actions/employees';
@@ -41,7 +42,7 @@ class EmployeesList extends React.Component{
                                                 <td>{emp.email}</td>
                                                 <td>{emp.mobile}</td>
                                                 <td>{emp.department && emp.department.name}</td>
-                                                <td><Button variant="outline-success">Edit</Button><Button className="ml-2" variant="outline-danger">Remove</Button></td>
+                                                <td><EmployeesEdit employee={emp}/><Button className="ml-2" variant="outline-danger">Remove</Button></td>
                                             </tr>
                                         )
                                     })
