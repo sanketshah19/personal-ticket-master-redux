@@ -29,6 +29,20 @@ export const removeEmployee = (id) => {
     }
 }
 
+export const singleEmployee = (employee) => {
+    return {
+        type: 'SINGLE_EMPLOYEE',
+        payload: employee
+    }
+}
+
+export const empTicket = (tickets) => {
+    return {
+        type: 'ASSO_TICKETS',
+        payload: tickets
+    }
+}
+
 export const startGetAllEmployees = () => {
     return (dispatch) => {
         axios.get('/employees', {
@@ -142,5 +156,24 @@ export const startRemoveEmployee = (id) => {
         .catch((err) => {
             swal ("Oops", `${err}` ,"error")
         })
+    }
+}
+
+
+export const startGetSingleEmployee = (id) => {
+    return (dispatch) => {
+        axios.get(`/employees/tickets/${id}`, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+            .then((response) => {
+                const employee = response.data.employee, tickets = response.data.tickets
+                dispatch(singleEmployee(employee))
+                dispatch(empTicket(tickets))
+            })
+            .catch((err) => {
+                swal("Oops", `${err}`, "error")
+            })
     }
 }
