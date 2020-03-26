@@ -29,6 +29,7 @@ router.get('/employees', authenticateUser, employeesController.list)
 router.post('/employees', authenticateUser, employeesController.create)
 router.get('/employees/:id', authenticateUser, employeesController.show)
 router.put('/employees/:id', authenticateUser, employeesController.update)
+router.delete('/employees/:id', authenticateUser, employeesController.destroy)
 router.get('/employees/tickets/:id', authenticateUser, employeesController.find)
 
 router.get('/tickets', authenticateUser, ticketsController.list)
