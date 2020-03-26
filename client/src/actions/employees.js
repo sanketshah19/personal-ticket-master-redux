@@ -8,6 +8,13 @@ export const getAllEmployees = (employees) => {
     }
 }
 
+export const addEmployee = (employee) => {
+    return {
+        type: 'ADD_EMPLOYEE',
+        payload: employee
+    }
+}
+
 export const startGetAllEmployees = () => {
     return (dispatch) => {
         axios.get('/employees', {
@@ -21,6 +28,32 @@ export const startGetAllEmployees = () => {
             })
             .catch((err) => {
                 swal("Oops", `${err}` ,"error")
+            })
+    }
+}
+
+export const startAddEmployee = (formData, props) => {
+    return (dispatch) => {
+        axios.post('/employees', formData, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+            .then((response) => {
+                if(response.data.hasOwnProperty('errmsg')){
+                    if(response.data.name === "MongoError" && response.data.code === 11000){
+                        swal ("Oops", `${Object.keys(response.data.keyValue)} already exists` ,"error")
+                    }
+                }else if(response.data.hasOwnProperty('errors')){
+                    swal("Oops!", `${response.data.message}`, "error")
+                }else{
+                    swal("Success!", "Employee Added Successfully!", "success")
+                    props.history.push('/employees')
+                    dispatch(addEmployee(response.data))
+                }
+            })
+            .catch((err) => {
+                swal("Oops!", `${err}`, "error");
             })
     }
 }

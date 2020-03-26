@@ -5,6 +5,9 @@ const employeesReducer = (state = employeesInitialState, action) => {
         case 'GET_ALL_EMPLOYEES': {
             return [...action.payload]
         }
+        case 'ADD_EMPLOYEE': {
+            return [...state, action.payload]
+        }
         default: {
             return [...state]
         }
