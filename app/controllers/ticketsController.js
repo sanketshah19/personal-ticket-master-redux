@@ -1,7 +1,7 @@
 const Ticket = require('../models/ticket')
 
 module.exports.list = function(req, res){
-    Ticket.find({user: req.user._id}).populate('customer').populate('department').populate('employees')
+    Ticket.find({user: req.user._id})
             .then((tickets) => {
                 res.send(tickets)
             })
@@ -40,7 +40,7 @@ module.exports.show = function(req, res){
 
 module.exports.update = function(req, res){
     const {body} = req, {id} = req.params
-    Ticket.findOneAndUpdate({_id: id, user: req.user._id}, body, {new: true, runValidators: true}).populate('customer').populate('department').populate('employees')
+    Ticket.findOneAndUpdate({_id: id, user: req.user._id}, body, {new: true, runValidators: true})
             .then((ticket) => {
                 if(ticket){
                     res.send(ticket)

@@ -20,6 +20,9 @@ const ticketsReducer = (state = ticketsInitialState, action) => {
         case 'CODE': {
             return [...action.payload.dupTickets].filter(ticket => ticket.code.toLowerCase().includes(action.payload.code.toLowerCase()))
         }
+        case 'ADD_TICKET': {
+            return [...state, action.payload]
+        }
         case 'EDIT_TICKET': {
             return [...state].map(ticket => {
                 if(ticket._id === action.payload._id){

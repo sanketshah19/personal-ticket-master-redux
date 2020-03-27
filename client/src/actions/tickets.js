@@ -39,6 +39,13 @@ export const ticketStatus = (ticket) => {
     }
 }
 
+export const addTicket = (ticket) => {
+    return {
+        type: 'ADD_TICKET',
+        payload: ticket
+    }
+}
+
 export const startGetAllTickets = () => {
     return (dispatch) => {
         axios.get('/tickets', {
@@ -67,6 +74,32 @@ export const startTicketStatus = (id, formData) => {
             .then((response) => {
                 const ticket = response.data
                 dispatch(ticketStatus(ticket))
+            })
+            .catch((err) => {
+                swal("Oops", `${err}`, "error")
+            })
+    }
+}
+
+export const startAddTicket = (formData) => {
+    return (dispatch) => {
+        axios.post('/tickets', formData, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+            .then((response) => {
+                if(response.data.hasOwnProperty('errmsg')){
+                    if(response.data.name === "MongoError" && response.data.code === 11000){
+                        swal ("Oops", `${Object.keys(response.data.keyValue)} already exists` ,"error")
+                    }
+                }else if(response.data.hasOwnProperty('errors')){
+                    swal("Oops!", `${response.data.message}`, "error")
+                }else{
+                    swal("Success!", "Ticket Added Successfully!", "success")
+                        const ticket = response.data
+                        dispatch(addTicket(ticket))
+                }
             })
             .catch((err) => {
                 swal("Oops", `${err}`, "error")

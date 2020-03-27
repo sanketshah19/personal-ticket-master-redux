@@ -3,11 +3,19 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button, Form, ProgressBar, Table} from 'react-bootstrap';
 
+import TicketsNew from './New';
+
+import {startGetAllCustomers} from '../../actions/customers';
+import {startGetAllDepartments} from '../../actions/departments';
+import {startGetAllEmployees} from '../../actions/employees';
 import {startGetAllTickets, filterTickets, filterTicketsByCode, startTicketStatus} from '../../actions/tickets';
 
 class TicketsList extends React.Component{
     
     componentDidMount(){
+        this.props.dispatch(startGetAllCustomers())
+        this.props.dispatch(startGetAllDepartments())
+        this.props.dispatch(startGetAllEmployees())
         this.props.dispatch(startGetAllTickets())
     }
 
@@ -23,6 +31,23 @@ class TicketsList extends React.Component{
         const ticket = this.props.tickets.find(ticket => ticket._id === id)
         ticket.isResolved = e.target.checked
         this.props.dispatch(startTicketStatus(id, ticket))
+    }
+
+    handleCustomerName = (id) => {
+        const customer = this.props.customers.find((cust) => cust._id === id)
+        return customer && customer.name
+    }
+
+    handleEmployeesName = (arr) => {
+        if(!arr.includes(' ')){
+            const names = arr.map((a) => this.props.employees.find(emp => emp._id == a) ? this.props.employees.find(emp => emp._id == a).name : '')
+            return names.join(',')
+        }
+    }
+
+    handleDepartmentName = (id) => {
+        const department = this.props.departments.find(dept => dept._id === id)
+        return department && department.name
     }
     
     render(){
@@ -61,9 +86,9 @@ class TicketsList extends React.Component{
                                         return(
                                             <tr key={ticket._id}>
                                                 <td>{ticket.code}</td>
-                                                <td>{ticket.customer && ticket.customer.name}</td>
-                                                <td>{ticket.employees && ticket.employees.map(emp => emp.name)}</td>
-                                                <td>{ticket.department && ticket.department.name}</td>
+                                                <td>{ticket.customer && this.handleCustomerName(ticket.customer)}</td>
+                                                <td>{ticket.employees && this.handleEmployeesName(ticket.employees)}</td>
+                                                <td>{ticket.department && this.handleDepartmentName(ticket.department)}</td>
                                                 <td>{ticket.priority}</td>
                                                 <td>{ticket.message}</td>
                                                 <td><Form.Check type="checkbox" checked={ticket.isResolved} onChange={(e) => this.handleStatus(e, ticket._id)}/></td>
@@ -75,6 +100,10 @@ class TicketsList extends React.Component{
                             </tbody>
                         </Table>
                     </div>
+                    <div className="col-md-4 mx-auto ml-2">
+                    { Object.values(this.props.customers).length !== 0 && 
+                        <TicketsNew customers={this.props.customers} departments={this.props.departments} employees={this.props.employees} />}
+                    </div>
                 </div>
             </div>
         )
@@ -83,6 +112,9 @@ class TicketsList extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
+        customers: state.customers,
+        departments: state.departments,
+        employees: state.employees,
         tickets: state.tickets,
         dupTickets: state.dupTickets
     }

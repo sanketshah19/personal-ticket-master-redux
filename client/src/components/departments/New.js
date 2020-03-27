@@ -57,7 +57,7 @@ class DepartmentsNew extends React.Component{
             const formData = {
                 name: this.state.name
             }
-            this.setState({show: false})
+            this.setState({show: false, name: ''})
             this.props.dispatch(startAddDepartment(formData))
         }else{
             swal("Oops","Please fill all the details correctly!","error")
