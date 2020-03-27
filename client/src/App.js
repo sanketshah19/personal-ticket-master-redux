@@ -21,6 +21,7 @@ import EmployeesNew from './components/employees/New';
 import EmployeesTickets from './components/employees/Ticket';
 
 import TicketsList from './components/tickets/List';
+import TicketsEdit from './components/tickets/Edit';
 
 function App(props) {
   function handleLogout(){
@@ -75,6 +76,7 @@ function App(props) {
         <PrivateRoute path="/employees/tickets/:id" component={EmployeesTickets} />
 
         <PrivateRoute path="/tickets" component={TicketsList} exact={true} />
+        <PrivateRoute path="/tickets/edit/:id" component={TicketsEdit} />
         
       </Switch>
 

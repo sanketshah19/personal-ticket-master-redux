@@ -46,6 +46,13 @@ export const addTicket = (ticket) => {
     }
 }
 
+export const singleTicket = (ticket) => {
+    return {
+        type: 'SINGLE_TICKET',
+        payload: ticket
+    }
+}
+
 export const startGetAllTickets = () => {
     return (dispatch) => {
         axios.get('/tickets', {
@@ -104,5 +111,48 @@ export const startAddTicket = (formData) => {
             .catch((err) => {
                 swal("Oops", `${err}`, "error")
             })
+    }
+}
+
+export const startGetSingleTicket = (id) => {
+    return (dispatch) => {
+        axios.get(`/tickets/${id}`, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+        .then((response) => {
+            const ticket = response.data
+            dispatch(singleTicket(ticket))
+        })
+        .catch((err) => {
+            swal("Oops", `${err}`, "error")
+        })
+    }
+}
+
+export const startEditTicket = (id, formData, props) => {
+    return (dispatch) => {
+        axios.put(`/tickets/${id}`, formData, {
+            headers: {
+                'x-auth': localStorage.getItem('authToken')
+            }
+        })
+        .then((response) => {
+            if(response.data.hasOwnProperty('errmsg')){
+                if(response.data.name === "MongoError" && response.data.code === 11000){
+                    swal ("Oops", `${Object.keys(response.data.keyValue)} already exists` ,"error")
+                }
+            }else if(response.data.hasOwnProperty('errors')){
+                swal("Oops!", `${response.data.message}`, "error")
+            }else{
+                swal("Success!", "Information Updated Successfully!", "success")
+                props.history.push("/tickets")
+                dispatch(ticketStatus(response.data))
+            }
+        })
+        .catch((err) => {
+            swal ("Oops", `${err}` ,"error")
+        })
     }
 }
