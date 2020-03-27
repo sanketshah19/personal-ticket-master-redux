@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import {Button, Form, ProgressBar, Table} from 'react-bootstrap';
 
 import TicketsNew from './New';
+import Charts from './Charts';
+import GraphImg from '../../Images/Graphs.jpg';
 
 import {startGetAllCustomers} from '../../actions/customers';
 import {startGetAllDepartments} from '../../actions/departments';
@@ -110,6 +112,22 @@ class TicketsList extends React.Component{
                         <div>
                             <h2>Tickets Resolved: </h2> 
                             <ProgressBar className="mt-3" animated now={Math.round((this.props.tickets.filter(item=>item.isResolved).length * 100) / this.props.tickets.length)} variant="success" label={`${Math.round((this.props.tickets.filter(item=>item.isResolved).length * 100) / this.props.tickets.length)}%`}/>
+                        </div>
+                    }
+                </div>
+                <div>
+                    {
+                        Object.values(this.props.tickets).length !== 0 && 
+                        <div className="mt-3">
+                            <h2>Some Stats: </h2>
+                            <div className="row mt-3">
+                                <div className="col-md-6 mx-auto">
+                                    <img src={GraphImg} alt="Graph" style={{width: '100%', height: '100%'}} />
+                                </div>
+                                <div className="col-md-6 mx-auto">
+                                    <Charts departments={this.props.departments} tickets={this.props.tickets}/>
+                                </div>
+                            </div>
                         </div>
                     }
                 </div>
