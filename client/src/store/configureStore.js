@@ -9,6 +9,7 @@ import departmentsReducer from '../reducers/departments';
 import employeesReducer from '../reducers/employees';
 import singleEmployeeReducer from '../reducers/singleEmployee';
 import ticketsReducer from '../reducers/tickets';
+import dupTicketsReducer from '../reducers/duplTickets';
 
 const configureStore = () => {
     const store = createStore(combineReducers({
@@ -19,6 +20,7 @@ const configureStore = () => {
         employees: employeesReducer,
         singleEmployee: singleEmployeeReducer,
         tickets: ticketsReducer,
+        dupTickets: dupTicketsReducer,
         assoTicket: assoTicketReducer
     }), applyMiddleware(thunk))
     return store
