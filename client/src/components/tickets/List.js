@@ -105,6 +105,14 @@ class TicketsList extends React.Component{
                         <TicketsNew customers={this.props.customers} departments={this.props.departments} employees={this.props.employees} />}
                     </div>
                 </div>
+                <div className="mx-auto mt-3">
+                    {   Object.values(this.props.tickets).length !== 0 && 
+                        <div>
+                            <h2>Tickets Resolved: </h2> 
+                            <ProgressBar className="mt-3" animated now={Math.round((this.props.tickets.filter(item=>item.isResolved).length * 100) / this.props.tickets.length)} variant="success" label={`${Math.round((this.props.tickets.filter(item=>item.isResolved).length * 100) / this.props.tickets.length)}%`}/>
+                        </div>
+                    }
+                </div>
             </div>
         )
     }
