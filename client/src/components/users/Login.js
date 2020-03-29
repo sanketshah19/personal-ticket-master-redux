@@ -1,6 +1,7 @@
 import React from 'react';
 import swal from 'sweetalert';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {Form, Button} from 'react-bootstrap';
 
 import LoginImg from '../../Images/Login.jpg';
@@ -91,6 +92,10 @@ class Login extends React.Component{
                                 </Form.Text>
                             </Form.Group>
 
+                            <Form.Group>
+                                <Link to="/reset">Forgot Password ?</Link><br/>
+                            </Form.Group>
+                            
                             <Button variant="primary" type="submit" size="lg" className="col-md-6 offset-md-3" value="Submit">
                                 Login
                             </Button>

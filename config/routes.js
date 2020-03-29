@@ -38,4 +38,8 @@ router.get('/tickets/:id', authenticateUser, ticketsController.show)
 router.put('/tickets/:id', authenticateUser, ticketsController.update)
 router.delete('/tickets/:id', authenticateUser, ticketsController.destroy)
 
+router.post('/reset', userController.checkEmail)
+router.get('/reset-pass/:token', userController.checkToken);
+router.post('/new-password', userController.newPassword);
+
 module.exports = router

@@ -9,6 +9,8 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Home from './components/common/Home';
 import Register from './components/users/Register';
 import Login from './components/users/Login';
+import ForgotPassword from './components/users/ForgotPassword';
+import ResetPassword from './components/users/ResetPassword';
 
 import CustomersList from './components/customers/List';
 import CustomersNew from './components/customers/New';
@@ -64,6 +66,8 @@ function App(props) {
         <Route path="/" component={Home} exact={true} />
         <Route path="/users/register" component={Register} />
         <Route path="/users/login" component={Login} />
+        <Route path="/reset" exact={true} component={ForgotPassword}/>
+        <Route path="/new-password" component={ResetPassword}/>
 
         <PrivateRoute path="/customers" component={CustomersList} exact={true} />
         <PrivateRoute path="/customers/new" component={CustomersNew} />

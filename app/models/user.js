@@ -43,7 +43,10 @@ const userSchema = new Schema({
                 default: Date.now
             }
         }
-    ]
+    ],
+    resetToken:{
+        type:String
+    }
 })
 
 userSchema.pre('save', function(next){
@@ -121,6 +124,46 @@ userSchema.statics.findByToken = function(token){
         _id: tokenData._id,
         'tokens.token': token
     })
+}
+
+userSchema.methods.generateEmailToken= function(){
+    const user = this
+    const tokenData={
+        _id:user._id,
+        username:user.username,
+        createdAt:Number(new Date())
+    }
+    
+    const token = jwt.sign(tokenData,'jwt@123')
+
+    user.resetToken = token
+    
+    return user.save()
+            .then((user) => {
+                return Promise.resolve(token)
+            })
+            .catch((err) => {
+                return Promise.reject(err)
+            })
+}
+
+userSchema.methods.generateNewPassword= function(password,next){
+    const user = this
+    return bcryptjs.genSalt(10)
+                    .then((salt)=>{
+                    return bcryptjs.hash(password,salt)
+                                    .then((encryptedPassword) => {
+                                    user.password = encryptedPassword
+                                    user.resetToken = ''
+                                    return user.save()
+                                                .then((user)=>{
+                                                    return Promise.resolve(user)
+                                                })
+                                                .catch((err)=>{
+                                                    return Promise.reject(err)
+                                                })
+                                    })
+                    })
 }
 
 const User = mongoose.model('User', userSchema)
