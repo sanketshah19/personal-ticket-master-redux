@@ -1,7 +1,7 @@
 ### Watch on YouTube
 [![Watch the video](https://i9.ytimg.com/vi/KpyTLW3n7RI/mq1.jpg?sqp=CO6In_UF&rs=AOn4CLDJCT2d4HBz1XyWxfb-tS_6rUlbdQ)](https://youtu.be/KpyTLW3n7RI)
 
-[Link]: https://youtu.be/KpyTLW3n7RI
+`YouTube Link` https://youtu.be/KpyTLW3n7RI
 
 ## Available Scripts
 
