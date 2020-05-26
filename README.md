@@ -16,6 +16,8 @@ This project uses the following technologies:
 - [Redux](https://redux.js.org/introduction/getting-started) for global state management
 - [JWT](https://jwt.io/) and [bcryptjs](https://www.npmjs.com/package/bcryptjs) for user authentication
 - [Nodemailer](https://nodemailer.com/about/) for sending email
+- [React-google-charts](https://react-google-charts.com/) to make rendering charts easy
+- [Select](https://material-ui.com/components/selects/) to select multiple user provided information from a list of options
 
 ## Quick Start
 
