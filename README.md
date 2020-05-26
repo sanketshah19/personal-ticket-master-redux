@@ -6,7 +6,7 @@
 
 `YouTube Link` https://youtu.be/KpyTLW3n7RI
 
-Full-stack mini enterprise level ticket management solution with customer, employee and ticket mappings built with the MERN stack. It includes key features like ticket status management, interactive charts for department level ticket analysis and reset password functionality. Customer will receive an email with a link to reset password. Ability to search tickets by code. Can also view pending tickets and completed tickets.
+Full-stack mini enterprise level ticket management solution with customer, employee and ticket mappings built with the MERN stack. It allows users to register or login and then create and handle tickets with respect to customers and their issues pertaining to a specific department and accordingly assign employees. It includes key features like ticket status management, interactive charts for department level ticket analysis and reset password functionality. Customer will receive an email with a link to reset password. Ability to search tickets by code. Can also view pending tickets and completed tickets.
 
 This project uses the following technologies:
 
