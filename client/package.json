@@ -8,7 +8,7 @@
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.1.9",
     "axios": "0.21.1",
-    "bootstrap": "5.1.2",
+    "bootstrap": "5.3.3",
     "react": "18.2.0",
     "react-bootstrap": "2.5.0",
     "react-dom": "18.2.0",
